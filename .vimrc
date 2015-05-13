@@ -108,13 +108,6 @@ set encoding=utf-8
 "自动判断编码时 依次尝试一下编码
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 
-"检测文件类型
-filetype on
-"针对不同的文件采用不同的缩进方式
-filetype indent on
-"允许插件
-filetype plugin on
-
 if has("gui_running")
     set guioptions-=m       " 隐藏菜单栏
     set guioptions-=T       " 隐藏工具栏
@@ -143,13 +136,17 @@ func! CompileRunGcc()
     endif
 endfunc
 
+set guifont=Consolas:h11.5
 
+set backspace=indent,eol,start
+
+set lines=25 columns=108
 
 "开始使用Vundle的必须配置
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=$VIM/vimfiles/bundle/vundle/
+call vundle#rc('$VIM/vimfiles/bundle/')
 
 "使用Vundle来管理Vundle
 Bundle 'gmarik/vundle'
@@ -173,14 +170,15 @@ let g:Powline_symbols='fancy'
 
 Bundle 'scrooloose/nerdtree'
 map <F8> :NERDTreeToggle<CR>
-autocmd vimenter * NERDTree
-wincmd w
-autocmd VimEnter * wincmd w
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+"autocmd vimenter * NERDTree
+"wincmd w
+"autocmd VimEnter * wincmd w
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q |endif
 
 Bundle 'majutsushi/tagbar'
+map <F7> :TagbarToggle<CR>
 let g:tagbar_width = 30       "设置宽度，默认为40  
-autocmd VimEnter * nested :call tagbar#autoopen(1)    "打开vim时自动打开  
+"autocmd VimEnter * nested :call tagbar#autoopen(1)    "打开vim时自动打开  
 let g:tagbar_right = 1        "在右侧 
 
 Bundle 'Shougo/neocomplcache'
@@ -191,6 +189,10 @@ Bundle 'scrooloose/syntastic'
 let g:syntastic_check_on_open = 1
 
 "Vundle配置必须 开启插件
+
+Bundle 'godlygeek/tabular'
+Bundle 'plasticboy/vim-markdown'
+
 filetype plugin indent on
 
 
